@@ -1,2 +1,3 @@
 [![Build Status](https://travis-ci.org/gerencianet/gn-api-sdk-ruby.svg)](https://travis-ci.org/gerencianet/gn-api-sdk-ruby)
 [![Coverage Status](https://coveralls.io/repos/gerencianet/gn-api-sdk-ruby/badge.svg?branch=master&service=github)](https://coveralls.io/github/gerencianet/gn-api-sdk-ruby?branch=master)
+[![Code Climate](https://codeclimate.com/github/gerencianet/gn-api-sdk-ruby/badges/gpa.svg)](https://codeclimate.com/github/gerencianet/gn-api-sdk-ruby)
