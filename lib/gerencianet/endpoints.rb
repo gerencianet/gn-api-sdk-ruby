@@ -89,8 +89,8 @@ module Gerencianet
     end
 
     def get_url(params, route)
-      params ||= {}
-      remove_placeholders(params, route)
+      params = {} if params.nil?
+      route = remove_placeholders(params, route)
       full_url(params, route)
     end
 
@@ -102,10 +102,13 @@ module Gerencianet
         route = route.gsub(":#{key}", value)
         params.delete(key.to_sym)
       end
+
+      route
     end
 
     def full_url(params, route)
       mapped = map_params(params)
+
       if !mapped.empty?
         "#{@base_url}#{route}?#{mapped}"
       else

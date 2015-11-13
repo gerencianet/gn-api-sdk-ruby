@@ -45,6 +45,10 @@ describe Gerencianet::Endpoints do
       "#{base_url}#{endpoints[:create_charge][:route]}"
     end
 
+    let(:detail_charge_url) do
+      "#{base_url}/charge/1000?page=10&total=2000"
+    end
+
     it "should get a token and make a request" do
       stub_request(:post, authorize_url)
         .to_return(body: {}.to_json)
@@ -94,6 +98,20 @@ describe Gerencianet::Endpoints do
 
       expect(WebMock).to have_requested(:post, authorize_url)
       expect(WebMock).not_to have_requested(:post, create_charge_url)
+    end
+
+    context "mapping params" do
+      it "should map params to route placeholders and query string" do
+        stub_request(:post, authorize_url)
+          .to_return(body: {}.to_json)
+
+        stub_request(:get, detail_charge_url)
+
+        @gerencianet.detail_charge(id: 1000, total: 2000, page: 10)
+
+        expect(WebMock).to have_requested(:post, authorize_url)
+        expect(WebMock).to have_requested(:get, detail_charge_url)
+      end
     end
   end
 end
