@@ -1,0 +1,9 @@
+Style/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+Style/Encoding:
+  Enabled: true
+  EnforcedStyle: when_needed
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

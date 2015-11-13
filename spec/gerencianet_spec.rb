@@ -1,13 +1,13 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Gerencianet::Endpoints do
-  let(:base_url) { Gerencianet::Constants::endpoints[:URL][:sandbox] }
-  let(:endpoints) { Gerencianet::Constants::endpoints[:ENDPOINTS] }
+  let(:base_url) { Gerencianet::Constants::URL[:sandbox] }
+  let(:endpoints) { Gerencianet::Constants::ENDPOINTS }
 
   before(:each) do
     @options = {
-      client_id: 'client_id',
-      client_secret: 'client_secret',
+      client_id: "client_id",
+      client_secret: "client_secret",
       sandbox: true
     }
 
@@ -22,7 +22,7 @@ describe Gerencianet::Endpoints do
     end
 
     context "urls" do
-      urls = Gerencianet::Constants::endpoints[:URL]
+      urls = Gerencianet::Constants::URL
 
       it "should set base_url to point to sandbox" do
         expect(@gerencianet.base_url).to eq(urls[:sandbox])
@@ -37,8 +37,13 @@ describe Gerencianet::Endpoints do
   end
 
   describe "making requests" do
-    let(:authorize_url) { "#{base_url}#{endpoints[:authorize][:route]}" }
-    let(:create_charge_url) { "#{base_url}#{endpoints[:create_charge][:route]}" }
+    let(:authorize_url) do
+      "#{base_url}#{endpoints[:authorize][:route]}"
+    end
+
+    let(:create_charge_url) do
+      "#{base_url}#{endpoints[:create_charge][:route]}"
+    end
 
     it "should get a token and make a request" do
       stub_request(:post, authorize_url)
@@ -56,9 +61,9 @@ describe Gerencianet::Endpoints do
       stub_request(:post, authorize_url)
         .to_return(status: 401)
 
-      expect {
+      expect do
         @gerencianet.create_charge
-      }.to raise_error("unable to authenticate")
+      end.to raise_error("unable to authenticate")
 
       expect(WebMock).to have_requested(:post, authorize_url)
       expect(WebMock).not_to have_requested(:post, create_charge_url)
@@ -81,15 +86,14 @@ describe Gerencianet::Endpoints do
 
     it "should raise parser error" do
       stub_request(:post, authorize_url)
-        .to_return(body: '')
+        .to_return(body: "")
 
-      expect {
+      expect do
         @gerencianet.create_charge
-      }.to raise_error("unable to parse server response, not a valid json")
+      end.to raise_error("unable to parse server response, not a valid json")
 
       expect(WebMock).to have_requested(:post, authorize_url)
       expect(WebMock).not_to have_requested(:post, create_charge_url)
     end
   end
-
 end

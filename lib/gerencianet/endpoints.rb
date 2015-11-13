@@ -3,6 +3,8 @@ require "gerencianet/constants"
 require "gerencianet/status"
 
 module Gerencianet
+  # Given the constants file, with the endpoints signatures,
+  # this class maps each one of them to a concerning function
   class Endpoints
     attr_accessor :token
     attr_reader :endpoints
@@ -13,102 +15,116 @@ module Gerencianet
     def initialize(options)
       @token = nil
       @options = options
-      @endpoints = Constants::endpoints[:ENDPOINTS]
-      @urls = Constants::endpoints[:URL]
-      @base_url = get_base_url
+      @endpoints = Constants::ENDPOINTS
+      @urls = Constants::URL
+      @base_url = current_base_url
 
       create_methods
     end
 
     private
-      def create_methods
-        @endpoints.each do |key, settings|
-          self.class.send(:define_method, key) do |params = nil, body = nil|
-            create(params, body, settings)
-          end
+
+    def create_methods
+      @endpoints.each do |key, settings|
+        self.class.send(:define_method, key) do |params = nil, body = nil|
+          create(params, body, settings)
         end
       end
+    end
 
-      def create(params, body, settings)
-        if(!@token)
-          authenticate
-        end
+    def create(params, body, settings)
+      authenticate unless @token
 
+      response = make_request(params, body, settings)
+
+      if response.status.to_s == STATUS::UNAUTHORIZED
+        authenticate
         response = make_request(params, body, settings)
-
-        if(response.status.to_s == STATUS::UNAUTHORIZED)
-          authenticate
-          response = make_request(params, body, settings)
-        end
-
-        response
       end
 
-      def make_request(params, body, settings)
-        url = get_url(params, settings[:route])
+      response
+    end
 
-        HTTP
-          .headers(accept: "application/json")
-          .auth("Bearer #{@token['access_token']}")
-          .method(settings[:method])
-          .call(url, json: body)
-      end
+    def make_request(params, body, settings)
+      url = get_url(params, settings[:route])
 
-      def authenticate
-        url = get_url({}, @endpoints[:authorize][:route])
+      HTTP
+        .headers(accept: "application/json")
+        .auth("Bearer #{@token['access_token']}")
+        .method(settings[:method])
+        .call(url, json: body)
+    end
 
-        headers = {
-          user: @options[:client_id],
-          pass: @options[:client_secret]
-        }
+    def authenticate
+      url = get_url({}, @endpoints[:authorize][:route])
 
-        body = {
-          grant_type: :client_credentials
-        }
+      response =
+        HTTP.basic_auth(auth_headers)
+        .post(url, json: auth_body)
 
-        response = HTTP
-          .basic_auth(headers)
-          .post(url, json: body)
+      respond(response)
+    end
 
-        if(response.status.to_s == STATUS::OK)
-          begin
-            @token = JSON.parse(response)
-          rescue JSON::ParserError
-            raise "unable to parse server response, not a valid json"
-          end
-        else
-          raise "unable to authenticate"
+    def auth_headers
+      {
+        user: @options[:client_id],
+        pass: @options[:client_secret]
+      }
+    end
+
+    def auth_body
+      {grant_type: :client_credentials}
+    end
+
+    def respond(response)
+      if response.status.to_s == STATUS::OK
+        begin
+          @token = JSON.parse(response)
+        rescue JSON::ParserError
+          raise "unable to parse server response, not a valid json"
         end
+      else
+        fail "unable to authenticate"
       end
+    end
 
-      def get_url(params, route)
-        params ||= {}
-        regex = /\:(\w+)/
+    def get_url(params, route)
+      params ||= {}
+      remove_placeholders(params, route)
+      full_url(params, route)
+    end
 
-        route.scan(regex).each do |key|
-          key = key[0]
-          value = params[key.to_sym].to_s
-          route = route.gsub(":#{key}", value)
-          params.delete(key.to_sym)
-        end
-
-        mapped = params.map do |key|
-          "#{key[0]}=#{key[1]}"
-        end.join('&')
-
-        if(!mapped.empty?)
-          "#{@base_url}#{route}?#{mapped}"
-        else
-          "#{@base_url}#{route}"
-        end
+    def remove_placeholders(params, route)
+      regex = /\:(\w+)/
+      route.scan(regex).each do |key|
+        key = key[0]
+        value = params[key.to_sym].to_s
+        route = route.gsub(":#{key}", value)
+        params.delete(key.to_sym)
       end
+    end
 
-      def get_base_url
-        if(@options[:sandbox])
-          @urls[:sandbox]
-        else
-          @urls[:production]
-        end
+    def full_url(params, route)
+      mapped = map_params(params)
+      if !mapped.empty?
+        "#{@base_url}#{route}?#{mapped}"
+      else
+        "#{@base_url}#{route}"
       end
+    end
+
+    def map_params(params)
+      params.map do |key|
+        "#{key[0]}=#{key[1]}"
+      end.join("&")
+    end
+
+    def current_base_url
+      if @options[:sandbox]
+        @urls[:sandbox]
+      else
+        @urls[:production]
+      end
+    end
   end
 end
