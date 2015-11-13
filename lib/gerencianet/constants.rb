@@ -90,6 +90,10 @@ module Gerencianet
       get_installments: {
         route: "/installments",
         method: "get"
+      },
+      resend_billet: {
+        route: "/charge/:id/billet/resend",
+        method: "post"
       }
     }
   end
