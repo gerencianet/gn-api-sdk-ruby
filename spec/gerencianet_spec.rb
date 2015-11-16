@@ -54,6 +54,7 @@ describe Gerencianet::Endpoints do
         .to_return(body: {}.to_json)
 
       stub_request(:post, create_charge_url)
+        .to_return(body: {}.to_json)
 
       @gerencianet.create_charge
 
@@ -77,7 +78,7 @@ describe Gerencianet::Endpoints do
       @gerencianet.token = {}
 
       stub_request(:post, create_charge_url)
-        .to_return(status: 401)
+        .to_return(status: 401, body: {}.to_json)
 
       stub_request(:post, authorize_url)
         .to_return(body: {}.to_json)
@@ -106,8 +107,9 @@ describe Gerencianet::Endpoints do
           .to_return(body: {}.to_json)
 
         stub_request(:get, detail_charge_url)
+          .to_return(body: {}.to_json)
 
-        @gerencianet.detail_charge(id: 1000, total: 2000, page: 10)
+        @gerencianet.detail_charge(params: {id: 1000, total: 2000, page: 10})
 
         expect(WebMock).to have_requested(:post, authorize_url)
         expect(WebMock).to have_requested(:get, detail_charge_url)

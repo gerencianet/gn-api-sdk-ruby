@@ -26,8 +26,8 @@ module Gerencianet
 
     def create_methods
       @endpoints.each do |key, settings|
-        self.class.send(:define_method, key) do |params = nil, body = nil|
-          create(params, body, settings)
+        self.class.send(:define_method, key) do |args = {}|
+          create(args[:params], args[:body], settings)
         end
       end
     end
@@ -42,7 +42,7 @@ module Gerencianet
         response = make_request(params, body, settings)
       end
 
-      response
+      respond(response)
     end
 
     def make_request(params, body, settings)
@@ -59,10 +59,15 @@ module Gerencianet
       url = get_url({}, @endpoints[:authorize][:route])
 
       response =
-        HTTP.basic_auth(auth_headers)
+        HTTP
+        .basic_auth(auth_headers)
         .post(url, json: auth_body)
 
-      respond(response)
+      if response.status.to_s == STATUS::UNAUTHORIZED
+        fail "unable to authenticate"
+      else
+        @token = respond(response)
+      end
     end
 
     def auth_headers
@@ -77,15 +82,9 @@ module Gerencianet
     end
 
     def respond(response)
-      if response.status.to_s == STATUS::OK
-        begin
-          @token = JSON.parse(response)
-        rescue JSON::ParserError
-          raise "unable to parse server response, not a valid json"
-        end
-      else
-        fail "unable to authenticate"
-      end
+      JSON.parse(response)
+    rescue JSON::ParserError
+      raise "unable to parse server response, not a valid json"
     end
 
     def get_url(params, route)
@@ -123,11 +122,7 @@ module Gerencianet
     end
 
     def current_base_url
-      if @options[:sandbox]
-        @urls[:sandbox]
-      else
-        @urls[:production]
-      end
+      @options[:sandbox] ? @urls[:sandbox] : @urls[:production]
     end
   end
 end
