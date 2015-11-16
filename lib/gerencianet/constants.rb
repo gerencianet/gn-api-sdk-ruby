@@ -65,7 +65,7 @@ module Gerencianet
       },
       delete_plan: {
         route: "/plan/:id",
-        method: "del"
+        method: "delete"
       },
       create_subscription: {
         route: "/plan/:id/subscription",
