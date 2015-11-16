@@ -1,4 +1,5 @@
 require "spec_helper"
+require "cgi"
 
 describe Gerencianet::Endpoints do
   let(:base_url) { Gerencianet::Constants::URL[:sandbox] }
@@ -46,7 +47,7 @@ describe Gerencianet::Endpoints do
     end
 
     let(:detail_charge_url) do
-      "#{base_url}/charge/1000?page=10&total=2000"
+      "#{base_url}/charge/1000?#{CGI.escape('page=10&total=2000')}"
     end
 
     it "should get a token and make a request" do
@@ -109,7 +110,7 @@ describe Gerencianet::Endpoints do
         stub_request(:get, detail_charge_url)
           .to_return(body: {}.to_json)
 
-        @gerencianet.detail_charge(params: {id: 1000, total: 2000, page: 10})
+        @gerencianet.detail_charge(params: {id: 1000, page: 10, total: 2000})
 
         expect(WebMock).to have_requested(:post, authorize_url)
         expect(WebMock).to have_requested(:get, detail_charge_url)
