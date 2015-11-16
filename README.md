@@ -24,6 +24,7 @@ And then execute:
 ```bash
 $ bundle
 ```
+
 Or install it yourself as:
 
 ```bash
@@ -41,9 +42,9 @@ options = {
   sandbox: true
 }
 
-gerencianet = Gerencianet.new(@options)
+gerencianet = Gerencianet.new(options)
 
-input = {
+charge = {
   items: [{
     name: "Product A",
     value: 1000,
@@ -51,8 +52,18 @@ input = {
   }]
 }
 
-response = gerencianet.create_charge(input)
+response = gerencianet.create_charge(body: charge)
 ```
+
+## Examples
+
+You can run the examples inside `docs/examples` with `$ ruby docs/examples/example.rb`:
+
+```bash
+$ ruby docs/examples/create_charge.rb
+```
+
+Just remember to set the correct credentials inside `docs/examples/credentials.rb` before running.
 
 ## Tests
 
