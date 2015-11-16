@@ -1,4 +1,5 @@
 require "http"
+require "cgi"
 require "gerencianet/constants"
 require "gerencianet/status"
 
@@ -109,7 +110,7 @@ module Gerencianet
       mapped = map_params(params)
 
       if !mapped.empty?
-        "#{@base_url}#{route}?#{mapped}"
+        "#{@base_url}#{route}?#{CGI.escape(mapped)}"
       else
         "#{@base_url}#{route}"
       end
