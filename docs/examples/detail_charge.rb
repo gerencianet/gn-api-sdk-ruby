@@ -12,4 +12,4 @@ params = {
 }
 
 gerencianet = Gerencianet.new(options)
-puts gerencianet.detailCharge(params: params)
+puts gerencianet.detail_charge(params: params)

@@ -7,11 +7,11 @@ options = {
   sandbox: true
 }
 
-body = {
+params = {
   name: "My Plan",
   limit: 1,
   offset: 0
 }
 
 gerencianet = Gerencianet.new(options)
-puts gerencianet.get_plans(params: body)
+puts gerencianet.get_plans(params: params)
