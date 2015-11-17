@@ -1,3 +1,7 @@
+# 0.0.4
+
+- Added: Custom http header
+
 # 0.0.3
 
 - Changed: Encode url params for get methods
