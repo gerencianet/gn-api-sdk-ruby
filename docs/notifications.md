@@ -9,11 +9,11 @@ Given that a charge has a valid `notification_url`, when the notification time c
 The example below assumes that you're using a **Rails** app. It's easier showing than explaining with words:
 
 ```ruby
-class TicketsController < ApplicationController
+class NotificationController < ApplicationController
   # this is a post route
   def notification_route
     params = {
-      token: params[:token]
+      token: params[:notification]
     }
 
     gerencianet = Gerencianet.new(options)
