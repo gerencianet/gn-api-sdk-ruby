@@ -62,9 +62,7 @@ body = {
 
 The `notification_url` property will be used for sending notifications once things happen with charges statuses, as when it's payment was approved, for example. More about notifications [here](https://github.com/gerencianet/gn-api-sdk-node/tree/master/docs/notifications.md). The `custom_id` property can be used to set your own reference to the carnet.
 
-### Required properties plus expiration date of the first charge **(optional)**:
-
-If you don't provide the expiration date of the first charge, the defaut value will be the current day + 8.
+### Required properties:
 
 ```ruby
 body = {

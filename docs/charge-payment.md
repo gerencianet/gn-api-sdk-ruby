@@ -35,8 +35,6 @@ gerencianet = Gerencianet.new(options)
 gerencianet.pay_charge(params: params, body: body)
 ```
 
-If you don't set the `expire_at` attribute, the date will be the current day + 3.
-
 You'll receive the payment info in the callback, such as the barcode and the billet link:
 
 ```ruby
