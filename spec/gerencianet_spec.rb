@@ -47,7 +47,7 @@ describe Gerencianet::Endpoints do
     end
 
     let(:detail_charge_url) do
-      "#{base_url}/charge/1000?#{CGI.escape('page=10&total=2000')}"
+      "#{base_url}/charge/1000?page=10&total=2000"
     end
 
     it "should get a token and make a request" do

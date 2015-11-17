@@ -110,7 +110,7 @@ module Gerencianet
       mapped = map_params(params)
 
       if !mapped.empty?
-        "#{@base_url}#{route}?#{CGI.escape(mapped)}"
+        "#{@base_url}#{route}?#{mapped}"
       else
         "#{@base_url}#{route}"
       end
@@ -118,7 +118,7 @@ module Gerencianet
 
     def map_params(params)
       params.map do |key|
-        "#{key[0]}=#{key[1]}"
+        "#{key[0]}=#{CGI.escape(key[1].to_s)}"
       end.join("&")
     end
 
