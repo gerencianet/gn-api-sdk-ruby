@@ -2,6 +2,7 @@ require "http"
 require "cgi"
 require "gerencianet/constants"
 require "gerencianet/status"
+require "gerencianet/version"
 
 module Gerencianet
   # Given the constants file, with the endpoints signatures,
@@ -48,9 +49,13 @@ module Gerencianet
 
     def make_request(params, body, settings)
       url = get_url(params, settings[:route])
+      headers = {
+        "accept" => "application/json",
+        "api-sdk" => "ruby-#{Gerencianet::VERSION}"
+      }
 
       HTTP
-        .headers(accept: "application/json")
+        .headers(headers)
         .auth("Bearer #{@token['access_token']}")
         .method(settings[:method])
         .call(url, json: body)
@@ -74,18 +79,13 @@ module Gerencianet
     def auth_headers
       {
         user: @options[:client_id],
-        pass: @options[:client_secret]
+        pass: @options[:client_secret],
+        "api-sdk" => "ruby-#{Gerencianet::VERSION}"
       }
     end
 
     def auth_body
       {grant_type: :client_credentials}
-    end
-
-    def respond(response)
-      JSON.parse(response)
-    rescue JSON::ParserError
-      raise "unable to parse server response, not a valid json"
     end
 
     def get_url(params, route)
@@ -124,6 +124,12 @@ module Gerencianet
 
     def current_base_url
       @options[:sandbox] ? @urls[:sandbox] : @urls[:production]
+    end
+
+    def respond(response)
+      JSON.parse(response)
+    rescue JSON::ParserError
+      raise "unable to parse server response, not a valid json"
     end
   end
 end
