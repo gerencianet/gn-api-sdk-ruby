@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="gn-api-sdk-ruby : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>gn-api-sdk-ruby</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/gerencianet/gn-api-sdk-ruby">View on GitHub</a>
+
+          <h1 id="project_title">gn-api-sdk-ruby</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/gerencianet/gn-api-sdk-ruby/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/gerencianet/gn-api-sdk-ruby/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="gn-api-sdk-ruby" class="anchor" href="#gn-api-sdk-ruby" aria-hidden="true"><span class="octicon octicon-link"></span></a>gn-api-sdk-ruby</h1>
+
+<blockquote>
+<p>A ruby gem for integration of your backend with the payment services
+provided by <a href="http://gerencianet.com.br">Gerencianet</a>.</p>
+</blockquote>
+
+<p><a href="https://travis-ci.org/gerencianet/gn-api-sdk-ruby"><img src="https://travis-ci.org/gerencianet/gn-api-sdk-ruby.svg" alt="Build Status"></a>
+<a href="https://coveralls.io/github/gerencianet/gn-api-sdk-ruby?branch=master"><img src="https://coveralls.io/repos/gerencianet/gn-api-sdk-ruby/badge.svg?branch=master&amp;service=github" alt="Coverage Status"></a>
+<a href="https://codeclimate.com/github/gerencianet/gn-api-sdk-ruby"><img src="https://codeclimate.com/github/gerencianet/gn-api-sdk-ruby/badges/gpa.svg" alt="Code Climate"></a>
+<a href="https://badge.fury.io/rb/gerencianet"><img src="https://badge.fury.io/rb/gerencianet.svg" alt="Gem Version"></a></p>
+
+<p><img class="emoji" title=":warning:" alt=":warning:" src="https://assets-cdn.github.com/images/icons/emoji/unicode/26a0.png" height="20" width="20" align="absmiddle"> <strong>Gerencianet API is under BETA version, meaning that it's not available for all users right now. If you're interested, you can always send an email to
+<a href="mailto:desenvolvedores@gerencianet.com.br">desenvolvedores@gerencianet.com.br</a> and we'll enable it for your account</strong></p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">gem</span> <span class="pl-s"><span class="pl-pds">'</span>gerencianet<span class="pl-pds">'</span></span></pre></div>
+
+<p>And then execute:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ bundle</pre></div>
+
+<p>Or install it yourself as:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ gem install gerencianet</pre></div>
+
+<h2>
+<a id="basic-usage" class="anchor" href="#basic-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic usage</h2>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">"</span>gerencianet<span class="pl-pds">"</span></span>
+
+options <span class="pl-k">=</span> {
+  <span class="pl-c1">client_id:</span> <span class="pl-s"><span class="pl-pds">"</span>client_id<span class="pl-pds">"</span></span>,
+  <span class="pl-c1">client_secret:</span> <span class="pl-s"><span class="pl-pds">"</span>client_secret<span class="pl-pds">"</span></span>,
+  <span class="pl-c1">sandbox:</span> <span class="pl-c1">true</span>
+}
+
+gerencianet <span class="pl-k">=</span> <span class="pl-c1">Gerencianet</span>.<span class="pl-k">new</span>(options)
+
+charge <span class="pl-k">=</span> {
+  <span class="pl-c1">items:</span> [{
+    <span class="pl-c1">name:</span> <span class="pl-s"><span class="pl-pds">"</span>Product A<span class="pl-pds">"</span></span>,
+    <span class="pl-c1">value:</span> <span class="pl-c1">1000</span>,
+    <span class="pl-c1">amount:</span> <span class="pl-c1">2</span>
+  }]
+}
+
+response <span class="pl-k">=</span> gerencianet.create_charge(<span class="pl-c1">body:</span> charge)</pre></div>
+
+<h2>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<p>You can run the examples inside <code>docs/examples</code> with <code>$ ruby docs/examples/example.rb</code>:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ ruby docs/examples/create_charge.rb</pre></div>
+
+<p>Just remember to set the correct credentials inside <code>docs/examples/credentials.rb</code> before running.</p>
+
+<h2>
+<a id="tests" class="anchor" href="#tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tests</h2>
+
+<p>To run the tests, just run <em>rspec</em>:</p>
+
+<div class="highlight highlight-source-shell"><pre>$ rspec</pre></div>
+
+<p>Or use <em>guard</em> to watch files and automatically run <em>rspec</em></p>
+
+<div class="highlight highlight-source-shell"><pre>$ guard -n <span class="pl-c1">false</span> -c</pre></div>
+
+<h2>
+<a id="additional-documentation" class="anchor" href="#additional-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Additional documentation</h2>
+
+<h3>
+<a id="charges" class="anchor" href="#charges" aria-hidden="true"><span class="octicon octicon-link"></span></a>Charges</h3>
+
+<ul>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charges.md">Creating charges</a></li>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charge-payment.md">Paying a charge</a></li>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charge-detailing.md">Detailing charges</a></li>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charge-update.md">Updating informations</a></li>
+</ul>
+
+<h3>
+<a id="carnets" class="anchor" href="#carnets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Carnets</h3>
+
+<ul>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/carnets.md">Creating carnets</a></li>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/carnet-detailing.md">Detailing carnets</a></li>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/carnet-update.md">Updating informations</a></li>
+</ul>
+
+<h3>
+<a id="subscriptions" class="anchor" href="#subscriptions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Subscriptions</h3>
+
+<ul>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/subscriptions.md">Creating subscriptions</a></li>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/subscription-payment.md">Paying a subscription</a></li>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/subscription-detailing.md">Detailing subscriptions</a></li>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/subscription-update.md">Updating informations</a></li>
+</ul>
+
+<h3>
+<a id="marketplace" class="anchor" href="#marketplace" aria-hidden="true"><span class="octicon octicon-link"></span></a>Marketplace</h3>
+
+<ul>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charge-with-marketplace.md">Creating a marketplace</a></li>
+</ul>
+
+<h3>
+<a id="notifications" class="anchor" href="#notifications" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notifications</h3>
+
+<ul>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/notifications.md">Getting notifications</a></li>
+</ul>
+
+<h3>
+<a id="payments" class="anchor" href="#payments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Payments</h3>
+
+<ul>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/installments.md">Getting installments</a></li>
+</ul>
+
+<h3>
+<a id="all-in-one" class="anchor" href="#all-in-one" aria-hidden="true"><span class="octicon octicon-link"></span></a>All in one</h3>
+
+<ul>
+<li><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/all-in-one.md">Usage</a></li>
+</ul>
+
+<h2>
+<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changelog</h2>
+
+<p><a href="https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/CHANGELOG.md">CHANGELOG</a></p>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Bug reports and pull requests are welcome on GitHub at <a href="https://github.com/gerencianet/gn-api-sdk-ruby">https://github.com/gerencianet/gn-api-sdk-ruby</a>. This project is intended to be a safe, welcoming space for collaboration.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>The gem is available as open source under the terms of the <a href="LICENSE">MIT License</a>.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">gn-api-sdk-ruby maintained by <a href="https://github.com/gerencianet">gerencianet</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
