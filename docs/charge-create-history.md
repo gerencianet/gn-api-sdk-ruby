@@ -1,6 +1,6 @@
 ## Adding information to charge's history
 
-It is possible to add information to any charge's history. These informations will be listed when [detailing a charge](https://github.com/gerencianet/gn-api-sdk-node/tree/master/docs/charge-detailing.md).
+It is possible to add information to any charge's history. These informations will be listed when [detailing a charge](https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charge-detailing.md).
 
 The process to add information to history is shown below:
 
