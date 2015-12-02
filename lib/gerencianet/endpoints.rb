@@ -63,9 +63,14 @@ module Gerencianet
 
     def authenticate
       url = get_url({}, @endpoints[:authorize][:route])
+      headers = {
+        "accept" => "application/json",
+        "api-sdk" => "ruby-#{Gerencianet::VERSION}"
+      }
 
       response =
         HTTP
+        .headers(headers)
         .basic_auth(auth_headers)
         .post(url, json: auth_body)
 
@@ -79,8 +84,7 @@ module Gerencianet
     def auth_headers
       {
         user: @options[:client_id],
-        pass: @options[:client_secret],
-        "api-sdk" => "ruby-#{Gerencianet::VERSION}"
+        pass: @options[:client_secret]
       }
     end
 
