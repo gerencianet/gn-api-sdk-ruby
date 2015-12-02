@@ -94,6 +94,10 @@ module Gerencianet
       resend_billet: {
         route: "/charge/:id/billet/resend",
         method: "post"
+      },
+      create_charge_history: {
+        route: "/charge/:id/history",
+        method: "post"
       }
     }
   end
