@@ -8,7 +8,7 @@ It's important to keep in mind that all the charges of the carnet will be update
 
 ```ruby
 params = {
-  id: 1004
+  id: 1000
 }
 
 body = {
@@ -34,11 +34,11 @@ Only parcels with status `waiting` or `unpaid` can have expiration date set or u
 
 ```ruby
 params = {
-  id: 1008
+  id: 1000,
+  parcel: 1
 }
 
 body = {
-  parcel: 1,
   expire_at: "2020-12-12"
 }
 

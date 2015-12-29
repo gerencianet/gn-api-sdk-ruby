@@ -8,11 +8,11 @@ options = {
 }
 
 params = {
-  id: 1008
+  id: 1008,
+  parcel: 1
 }
 
 body = {
-  parcel: 1,
   expire_at: "2020-12-12"
 }
 

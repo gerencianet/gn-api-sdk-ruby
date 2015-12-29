@@ -4,7 +4,7 @@ It's very simple to get details from a charge. You just need the id:
 
 ```ruby
 params = {
-  id: 1000
+  id: 1300
 }
 
 gerencianet = Gerencianet.new(options)
@@ -17,7 +17,7 @@ As response, you will receive all the information about the charge (including if
 {
   "code": 200,
   "data": {
-    "charge_id": 233,
+    "charge_id": 1300,
     "subscription_id": 12,
     "total": 2000,
     "status": "new",

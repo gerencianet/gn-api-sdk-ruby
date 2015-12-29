@@ -13,7 +13,7 @@ require "date"
 tomorrow = Date.today + 1
 
 params = {
-  id: 2365
+  id: 1253
 }
 
 body = {
@@ -41,7 +41,7 @@ You'll receive the payment info in the callback, such as the barcode and the bil
 {
   "code": 200,
   "data": {
-    "charge_id": 242,
+    "charge_id": 1253,
     "total": 1150,
     "payment": "banking_billet",
     "barcode": "00190.00009 01523.894002 00059.161182 9 64350000001150",
@@ -108,7 +108,7 @@ body = {
 }
 
 params = {
-  id: 2366
+  id: 1253
 }
 
 gerencianet = Gerencianet.new(options)
@@ -121,7 +121,7 @@ If everything went well, the response will come with the total value, installmen
 {
   "code": 200,
   "data": {
-    "charge_id": 223,
+    "charge_id": 1253,
     "total": 1150,
     "payment": "credit_card",
     "installments": 1,

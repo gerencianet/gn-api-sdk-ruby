@@ -6,7 +6,7 @@ You can update the `custom_id` or the `notification_url` of a charge:
 
 ```ruby
 params = {
-  id: 1008
+  id: 1253
 }
 
 body = {
@@ -32,7 +32,7 @@ Only charges with status `waiting` or `unpaid` and with payment method `banking_
 
 ```ruby
 params = {
-  id: 1008
+  id: 1253
 }
 
 body = {

@@ -7,7 +7,7 @@ The process to add information to history is shown below:
 
 ```ruby
 params = {
-  id: 1000
+  id: 1253
 }
 
 body = {

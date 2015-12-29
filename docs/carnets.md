@@ -2,65 +2,15 @@
 
 Carnet is a payment method that generates a bundle of charges with the same payment information and customer.
 
-In order to generate a carnet, you'll need the items, the customer and the number of repeats (or parcels).
+In order to generate a carnet, you'll need the items, the customer, the expiration date of the first charge and the number of repeats (or parcels).
 
 The carnets can also be generated with the `metadata` attribute, just like in the banking billet, containing the `notification_url` and/or `custom_id`
 
 There are other optional params:
 
-- `expiration date` of the first charge
 - `post_office_service`, which tells if the carnet must be sent via post office service (to you or to your clients)
 - `split_items`, identifying if the total value must be splitted among the charges (defaults to `false`)
 - The carnet `instructions`
-
-### Required properties:
-
-```ruby
-body = {
-  expire_at: tomorrow.strftime,
-  items: [{
-    name: "Carnet Item 1",
-    value: 1000,
-    amount: 2
-  }],
-  customer: {
-    name: "Gorbadoc Oldbuck",
-    email: "oldbuck@gerencianet.com.br",
-    cpf: "04267484171",
-    birth: "1977-01-15",
-    phone_number: "5144916523"
-  },
-  repeats: 12,
-  split_items: false
-}
-```
-
-### Required properties plus metadata **(optional)**:
-
-```ruby
-body = {
-  expire_at: tomorrow.strftime,
-  items: [{
-    name: "Carnet Item 1",
-    value: 1000,
-    amount: 2
-  }],
-  customer: {
-    name: "Gorbadoc Oldbuck",
-    email: "oldbuck@gerencianet.com.br",
-    cpf: "04267484171",
-    birth: "1977-01-15",
-    phone_number: "5144916523"
-  },
-  repeats: 12,
-  metadata: {
-    custom_id: "my_id",
-    notification_url: "http://yourdomain.com"
-  }
-}
-```
-
-The `notification_url` property will be used for sending notifications once things happen with charges statuses, as when it's payment was approved, for example. More about notifications [here](https://github.com/gerencianet/gn-api-sdk-node/tree/master/docs/notifications.md). The `custom_id` property can be used to set your own reference to the carnet.
 
 ### Required properties:
 
@@ -83,6 +33,34 @@ body = {
 }
 ```
 
+### Required properties plus metadata **(optional)**:
+
+```ruby
+body = {
+  items: [{
+    name: "Carnet Item 1",
+    value: 1000,
+    amount: 2
+  }],
+  customer: {
+    name: "Gorbadoc Oldbuck",
+    email: "oldbuck@gerencianet.com.br",
+    cpf: "04267484171",
+    birth: "1977-01-15",
+    phone_number: "5144916523"
+  },
+  repeats: 4,
+  expire_at: "2020-12-12",
+  metadata: {
+    custom_id: "my_id",
+    notification_url: "http://yourdomain.com"
+  }
+}
+```
+
+The `notification_url` property will be used for sending notifications once things happen with charges statuses, as when it's payment was approved, for example. More about notifications [here](https://github.com/gerencianet/gn-api-sdk-node/tree/master/docs/notifications.md). The `custom_id` property can be used to set your own reference to the carnet.
+
+
 ### Required properties plus post office service information **(optional)**:
 
 If you want the carnet to arrive at your house or at your client's house, you can count on Gerencianet's post office service. Just send an extra attribute:
@@ -102,6 +80,7 @@ body = {
     phone_number: "5144916523"
   },
   repeats: 4,
+  expire_at: "2020-12-12",
   post_office_service: {
     send_to: "customer"
   }
@@ -130,6 +109,7 @@ var body = {
     phone_number: "5144916523"
   },
   repeats: 4,
+  expire_at: "2020-12-12",
   split_items: true
 }
 ```
@@ -153,6 +133,7 @@ body = {
     phone_number: "5144916523"
   },
   repeats: 4,
+  expire_at: "2020-12-12",
   instructions: [
     "Pay only with money",
     "Do not pay with gold"
@@ -172,14 +153,14 @@ Check out the response:
 {
   "code": 200,
   "data": {
-    "carnet_id": 6,
+    "carnet_id": 1000,
     "cover": "https://visualizacao.gerencianet.com.br/emissao/28333_2385_ZEMAL5/A5CC-28333-61428-LEENA9/28333-61428-LEENA9",
     "charges": [{
         "charge_id": 357,
         "parcel": "1",
         "status": "waiting",
         "value": 2000,
-        "expire_at": "2015-06-01",
+        "expire_at": "2020-12-12",
         "url": "https://visualizacao.gerencianet.com.br/emissao/28333_2385_ZEMAL5/A5CL-28333-61428-LEENA9/28333-61428-LEENA9",
         "barcode": "00190.00009 01523.894002 00061.428181 1 64780000002000"
       }, {
@@ -187,7 +168,7 @@ Check out the response:
         "parcel": "2",
         "status": "waiting",
         "value": 2000,
-        "expire_at": "2015-07-01",
+        "expire_at": "2021-01-12",
         "url": "https://visualizacao.gerencianet.com.br/emissao/28333_2385_ZEMAL5/A5CL-28333-61428-LEENA9/28333-61429-CORZE4",
         "barcode": "00190.00009 01523.894002 00061.428181 8 65090000002000"
       }, {
@@ -195,7 +176,7 @@ Check out the response:
         "parcel": "3",
         "status": "waiting",
         "value": 2000,
-        "expire_at": "2015-08-01",
+        "expire_at": "2021-02-12",
         "url": "https://visualizacao.gerencianet.com.br/emissao/28333_2385_ZEMAL5/A5CL-28333-61428-LEENA9/28333-61430-HIRRA4",
         "barcode": "00190.00009 01523.894002 00061.428181 7 65400000002000"
       }, {
@@ -203,7 +184,7 @@ Check out the response:
         "parcel": "4",
         "status": "waiting",
         "value": 2000,
-        "expire_at": "2015-09-01",
+        "expire_at": "2021-03-12",
         "url": "https://visualizacao.gerencianet.com.br/emissao/28333_2385_ZEMAL5/A5CL-28333-61428-LEENA9/28333-61431-HIRRA4",
         "barcode": "00190.00009 01523.894002 00061.428181 5 65400000002000"
       }

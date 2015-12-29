@@ -44,7 +44,7 @@ The response is the sames as usual:
 {
   "code": 200,
   "data": {
-    "charge_id": 254,
+    "charge_id": 1254,
     "total": 10000,
     "status": "new",
     "custom_id": null,
