@@ -99,8 +99,12 @@ module Gerencianet
         route: "/charge/:id/history",
         method: "post"
       },
+      resend_carnet: {
+        route: "/carnet/:id/resend",
+        method: "post"
+      },
       resend_parcel: {
-        route: "/charge/:id/parcel/:parcel/resend",
+        route: "/carnet/:id/parcel/:parcel/resend",
         method: "post"
       },
       create_carnet_history: {
