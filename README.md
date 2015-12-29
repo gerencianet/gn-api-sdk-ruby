@@ -94,6 +94,7 @@ $ guard -n false -c
 - [Creating carnets](https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/carnets.md)
 - [Detailing carnets](https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/carnet-detailing.md)
 - [Updating informations](https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/carnet-update.md)
+- [Adding information to carnet's history](https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/carnet-create-history.md)
 
 ### Subscriptions
 

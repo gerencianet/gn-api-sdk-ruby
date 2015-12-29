@@ -98,6 +98,10 @@ module Gerencianet
       create_charge_history: {
         route: "/charge/:id/history",
         method: "post"
+      },
+      create_carnet_history: {
+        route: "/carnet/:id/history",
+        method: "post"
       }
     }
   end
