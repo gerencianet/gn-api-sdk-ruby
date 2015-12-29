@@ -87,6 +87,7 @@ $ guard -n false -c
 - [Paying a charge](https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charge-payment.md)
 - [Detailing charges](https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charge-detailing.md)
 - [Updating informations](https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charge-update.md)
+- [Resending billet](https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charge-resend-billet.md)
 - [Adding information to charge's history](https://github.com/gerencianet/gn-api-sdk-ruby/tree/master/docs/charge-create-history.md)
 
 ### Carnets
