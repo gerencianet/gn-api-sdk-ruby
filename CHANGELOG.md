@@ -1,3 +1,8 @@
+# 0.0.5
+
+- Added: Carnet resend/history endpoints mapping
+- Updated: Docs and examples
+
 # 0.0.4
 
 - Added: Custom http header
