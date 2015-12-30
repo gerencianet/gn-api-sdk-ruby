@@ -1,6 +1,11 @@
-# 0.0.5
+# 0.0.6
 
 - Added: Carnet resend/history endpoints mapping
+- Updated: Docs and examples
+
+# 0.0.5
+
+- Added: Charge history endpoint mapping
 - Updated: Docs and examples
 
 # 0.0.4
