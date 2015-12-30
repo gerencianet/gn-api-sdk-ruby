@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.description   = "A ruby gem for integration of your backend with the
                         payment services provided by Gerencianet"
 
-  spec.homepage      = "https://github.com/gerencianet/gn-api-sdk-ruby"
+  spec.homepage      = "http://gerencianet.github.io/gn-api-sdk-ruby"
   spec.license       = "MIT"
 
   spec.files         = files
