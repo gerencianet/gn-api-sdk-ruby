@@ -9,7 +9,7 @@ params = {
 }
 
 gerencianet = Gerencianet.new(options)
-puts gerencianet.cancel_parcel(params: params, body: body)
+puts gerencianet.cancel_parcel(params: params)
 ```
 
 If everything goes well, the return will be:

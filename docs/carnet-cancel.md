@@ -8,7 +8,7 @@ params = {
 }
 
 gerencianet = Gerencianet.new(options)
-puts gerencianet.cancel_carnet(params: params, body: body)
+puts gerencianet.cancel_carnet(params: params)
 ```
 
 If everything goes well, the return will be:
