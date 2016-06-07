@@ -110,6 +110,14 @@ module Gerencianet
       create_carnet_history: {
         route: "/carnet/:id/history",
         method: "post"
+      },
+      cancel_carnet: {
+        route: "/carnet/:id/cancel",
+        method: "put"
+      },
+      cancel_parcel: {
+        route: "/carnet/:id/parcel/:parcel/cancel",
+        method: "put"
       }
     }
   end
