@@ -1,3 +1,9 @@
+# 0.0.7
+
+- Added: Cancel carnet endpoint mapping
+- Added: Cancel parcel endpoint mapping
+- Updated: Docs and examples
+
 # 0.0.6
 
 - Added: Carnet resend/history endpoints mapping
