@@ -8,6 +8,10 @@ provided by [Gerencianet](http://gerencianet.com.br).
 [![Code Climate](https://codeclimate.com/github/gerencianet/gn-api-sdk-ruby/badges/gpa.svg)](https://codeclimate.com/github/gerencianet/gn-api-sdk-ruby)
 [![Gem Version](https://badge.fury.io/rb/gerencianet.svg)](https://badge.fury.io/rb/gerencianet)
 
+
+**Em caso de dúvidas, você pode verificar a [Documentação](https://docs.gerencianet.com.br) da API na Gerencianet e, necessitando de mais detalhes ou informações, entre em contato com nossa consultoria técnica, via nossos [Canais de Comunicação](https://gerencianet.com.br/central-de-ajuda).**
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
