@@ -51,7 +51,7 @@ You'll receive the payment info in the callback, such as the barcode and the bil
 }
 ```
 
-If you want the banking billet to have a message to customer, it's possible to send a message with a maximum of 255 caracters, just as follows:
+If you want the banking billet to have a message to customer, it's possible to send a message with a maximum of 80 caracters, just as follows:
 
 ```ruby
 body = {
@@ -65,7 +65,7 @@ body = {
         birth: "1977-01-15",
         phone_number: "5144916523"
       },
-      message: "The delivery time is counted in working days, in other words not inlclude Saturdays, Sundays and holidays"
+      message: "The delivery time is counted in working days, not include weekends and holidays"
     }
   }
 }
