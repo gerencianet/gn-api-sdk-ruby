@@ -1,3 +1,8 @@
+# 0.0.8
+
+- Added: Link charge endpoint mapping
+- Updated: Docs and examples
+
 # 0.0.7
 
 - Added: Cancel carnet endpoint mapping
