@@ -27,7 +27,10 @@ Or install it yourself as:
 ```bash
 $ gem install gerencianet
 ```
-
+## Tested with
+```
+ruby 2.1.0
+```
 ## Basic usage
 
 ```ruby
