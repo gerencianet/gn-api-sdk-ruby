@@ -123,11 +123,7 @@ describe Gerencianet::Endpoints do
           .to_return(body: {}.to_json)
 
         stub_request(:post, create_charge_url)
-          .with(:headers => {'Accept' => 'application/json',
-            'Api-Sdk' => "ruby-#{Gerencianet::VERSION}",
-            'Authorization' => 'Bearer ',
-            'Connection' => 'close', 'Host'=>'sandbox.gerencianet.com.br',
-            'User-Agent' => 'http.rb/0.9.8',
+          .with(:headers => {
             'Partner-Token' => 'my-partner-token'
           }).to_return(body: {}.to_json)
 
