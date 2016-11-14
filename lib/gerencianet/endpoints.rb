@@ -54,6 +54,10 @@ module Gerencianet
         "api-sdk" => "ruby-#{Gerencianet::VERSION}"
       }
 
+      if @options[:partner_token]
+        headers['partner-token'] = @options[:partner_token]
+      end
+
       HTTP
         .headers(headers)
         .auth("Bearer #{@token['access_token']}")

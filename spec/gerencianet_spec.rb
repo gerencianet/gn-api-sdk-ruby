@@ -115,6 +115,27 @@ describe Gerencianet::Endpoints do
         expect(WebMock).to have_requested(:post, authorize_url)
         expect(WebMock).to have_requested(:get, detail_charge_url)
       end
+
+      it "should forward parter-token header" do
+        @options[:partner_token] = 'my-partner-token'
+
+        stub_request(:post, authorize_url)
+          .to_return(body: {}.to_json)
+
+        stub_request(:post, create_charge_url)
+          .with(:headers => {'Accept' => 'application/json',
+            'Api-Sdk' => "ruby-#{Gerencianet::VERSION}",
+            'Authorization' => 'Bearer ',
+            'Connection' => 'close', 'Host'=>'sandbox.gerencianet.com.br',
+            'User-Agent' => 'http.rb/0.9.8',
+            'Partner-Token' => 'my-partner-token'
+          }).to_return(body: {}.to_json)
+
+        @gerencianet.create_charge
+
+        expect(WebMock).to have_requested(:post, authorize_url)
+        expect(WebMock).to have_requested(:post, create_charge_url)
+      end
     end
   end
 end
