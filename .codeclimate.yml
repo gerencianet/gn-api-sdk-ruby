@@ -1,6 +1,9 @@
 engines:
   rubocop:
     enabled: true
+ratings:
+  paths:
+  - "lib/**/*.rb"
 exclude_paths:
 - docs/**/*
 - examples/**/*
