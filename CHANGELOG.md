@@ -1,3 +1,7 @@
+# 0.0.10
+
+- Added: Update charge link endpoint mapping
+
 # 0.0.9
 
 - Added: Forward `partner-token` header
