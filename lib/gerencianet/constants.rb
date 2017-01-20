@@ -122,6 +122,14 @@ module Gerencianet
       link_charge: {
         route: "/charge/:id/link",
         method: "post"
+      },
+      charge_link: {
+        route: "/charge/:id/link",
+        method: "post"
+      },
+      update_charge_link: {
+        route: "/charge/:id/link",
+        method: "put"
       }
     }
   end

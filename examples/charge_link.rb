@@ -24,4 +24,4 @@ body = {
 }
 
 gerencianet = Gerencianet.new(options)
-puts gerencianet.link_charge(params: params, body: body)
+puts gerencianet.charge_link(params: params, body: body)
