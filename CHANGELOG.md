@@ -1,3 +1,9 @@
+# 0.0.11
+
+- Added: new endpoint (update plan)
+- Added: new endpoint (create subscription history)
+- Updated: examples
+
 # 0.0.10
 
 - Added: Update charge link endpoint mapping

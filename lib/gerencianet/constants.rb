@@ -130,6 +130,14 @@ module Gerencianet
       update_charge_link: {
         route: "/charge/:id/link",
         method: "put"
+      },
+      update_plan: {
+        route: "/plan/:id",
+        method: "put"
+      },
+      create_subscription_history: {
+        route: "/subscription/:id/history",
+        method: "post"
       }
     }
   end
