@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.4.0", ">= 3.4.0"
   spec.add_development_dependency "guard-rspec", "~> 4.6.4", ">= 4.6.4"
   spec.add_development_dependency "webmock", "~> 1.22.3", ">= 1.22.3"
-  spec.add_development_dependency "rubocop", "~> 0.35.1", ">= 0.35.1"
+  spec.add_development_dependency "rubocop", "~> 0.49.0", ">= 0.49.0"
   spec.add_development_dependency "listen", "~> 3.0.4", ">= 3.0.4"
 
   spec.add_runtime_dependency "http", "~> 0.9", ">= 0.9.8"
