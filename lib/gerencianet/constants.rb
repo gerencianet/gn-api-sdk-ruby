@@ -138,6 +138,10 @@ module Gerencianet
       create_subscription_history: {
         route: "/subscription/:id/history",
         method: "post"
+      },
+      create_charge_balance_sheet: {
+        route: "/charge/:id/balance-sheet",
+        method: "post"
       }
     }
   end
