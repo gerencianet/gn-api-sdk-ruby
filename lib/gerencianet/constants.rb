@@ -142,7 +142,15 @@ module Gerencianet
       create_charge_balance_sheet: {
         route: "/charge/:id/balance-sheet",
         method: "post"
-      }
+      },
+      settleCharge: {
+        route: '/charge/:id/settle',
+        method: 'put'
+      },
+      settleCarnetParcel: {
+        route: '/carnet/:id/parcel/:parcel/settle',
+        method: 'put'
+     }
     }
   end
 end
