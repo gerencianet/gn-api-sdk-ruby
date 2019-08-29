@@ -143,6 +143,10 @@ module Gerencianet
         route: "/charge/:id/balance-sheet",
         method: "post"
       },
+      create_charge_onestep: {
+        route: "/charge/one-step",
+        method: "post"
+      },
       settleCharge: {
         route: '/charge/:id/settle',
         method: 'put'

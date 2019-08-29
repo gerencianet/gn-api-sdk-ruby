@@ -1,3 +1,7 @@
+# 0.0.15
+
+- Added: new endpoint (one step)
+
 # 0.0.14
 
 - Added: new endpoint (settle charge)
