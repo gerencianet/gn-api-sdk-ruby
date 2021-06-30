@@ -22,29 +22,39 @@ module Gerencianet
       @base_url = current_base_url
 
       create_methods
+      
     end
 
     private
 
     def create_methods
-      @endpoints.each do |key, settings|
-        self.class.send(:define_method, key) do |args = {}|
-          create(args[:params], args[:body], settings)
+      if (@options.has_key?(:pix_cert))
+        @endpoints[:PIX].each do |key, settings|
+          self.class.send(:define_method, key) do |args = {}|
+            create(args[:params], args[:body], settings)  
+          end
+        end
+      else
+        @endpoints[:DEFAULT].each do |key, settings|
+          self.class.send(:define_method, key) do |args = {}|
+            create(args[:params], args[:body], settings) 
+          end
         end
       end
     end
 
     def create(params, body, settings)
       authenticate unless @token
-
       response = make_request(params, body, settings)
-
       if response.status.to_s == STATUS::UNAUTHORIZED
         authenticate
         response = make_request(params, body, settings)
       end
-
-      respond(response)
+      if response.to_s.empty?
+        puts response.status.to_s
+      else
+        respond(response)
+      end     
     end
 
     def make_request(params, body, settings)
@@ -58,26 +68,64 @@ module Gerencianet
         headers['partner-token'] = @options[:partner_token]
       end
 
-      HTTP
+      if @options[:"x-skip-mtls-checking"]
+        headers["x-skip-mtls-checking"] = @options[:"x-skip-mtls-checking"]
+      end
+  
+      if (@options.has_key?(:pix_cert))
+       
+        HTTP
         .headers(headers)
         .auth("Bearer #{@token['access_token']}")
         .method(settings[:method])
-        .call(url, json: body)
+        .call(url, json: body, ssl_context: OpenSSL::SSL::SSLContext.new.tap do |ctx|
+          ctx.set_params(
+            cert: OpenSSL::X509::Certificate.new(File.read(@options[:pix_cert])),
+            key:  OpenSSL::PKey::RSA.new(File.read(@options[:pix_cert]))
+          )
+        end)
+
+      else
+        HTTP
+          .headers(headers)
+          .auth("Bearer #{@token['access_token']}")
+          .method(settings[:method])
+          .call(url, json: body)
+      end
+
     end
 
     def authenticate
-      url = get_url({}, @endpoints[:authorize][:route])
+      if (@options.has_key?(:pix_cert))
+        url = get_url({}, @endpoints[:PIX][:authorize][:route])
+      else
+        url = get_url({}, @endpoints[:DEFAULT][:authorize][:route])
+      end
       headers = {
         "accept" => "application/json",
-        "api-sdk" => "ruby-#{Gerencianet::VERSION}"
+        "api-sdk" => "ruby-#{Gerencianet::VERSION}"  
       }
-
-      response =
-        HTTP
-        .headers(headers)
-        .basic_auth(auth_headers)
-        .post(url, json: auth_body)
-
+      
+      if (@options.has_key?(:pix_cert))
+      
+        response = 
+          HTTP 
+          .headers(headers)
+          .basic_auth(auth_headers)
+          .post(url, json: auth_body, ssl_context: OpenSSL::SSL::SSLContext.new.tap do |ctx|
+            ctx.set_params(
+              cert: OpenSSL::X509::Certificate.new(File.read(@options[:pix_cert])),
+              key:  OpenSSL::PKey::RSA.new(File.read(@options[:pix_cert]))
+            )
+          end)        
+      else
+        response = 
+          HTTP     
+          .headers(headers)
+          .basic_auth(auth_headers)
+          .post(url, json: auth_body)
+      end
+  
       if response.status.to_s == STATUS::UNAUTHORIZED
         fail "unable to authenticate"
       else
@@ -90,6 +138,7 @@ module Gerencianet
         user: @options[:client_id],
         pass: @options[:client_secret]
       }
+
     end
 
     def auth_body
@@ -116,7 +165,7 @@ module Gerencianet
 
     def full_url(params, route)
       mapped = map_params(params)
-
+     
       if !mapped.empty?
         "#{@base_url}#{route}?#{mapped}"
       else
@@ -131,7 +180,11 @@ module Gerencianet
     end
 
     def current_base_url
-      @options[:sandbox] ? @urls[:sandbox] : @urls[:production]
+      if (@options.has_key?(:pix_cert))
+        @options[:sandbox] ? @urls[:PIX][:sandbox] : @urls[:PIX][:production]
+      else
+        @options[:sandbox] ? @urls[:DEFAULT][:sandbox] : @urls[:DEFAULT][:production]
+      end
     end
 
     def respond(response)
