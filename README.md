@@ -29,7 +29,7 @@ $ gem install gerencianet
 ```
 ## Tested with
 ```
-ruby 2.1.0
+ruby 2.6.6
 ```
 ## Basic usage
 
@@ -37,9 +37,9 @@ ruby 2.1.0
 require "gerencianet"
 
 options = {
-  client_id: "client_id",
-  client_secret: "client_secret",
-  sandbox: true
+  client_id: CREDENTIALS::CLIENT_ID,
+  client_secret: CREDENTIALS::CLIENT_SECRET,
+  sandbox: CREDENTIALS::SANDBOX
 }
 
 gerencianet = Gerencianet.new(options)

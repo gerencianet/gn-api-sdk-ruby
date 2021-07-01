@@ -1,3 +1,7 @@
+# 1.0.0
+
+- Added: API Pix endpoints
+
 # 0.0.15
 
 - Added: new endpoint (one step)

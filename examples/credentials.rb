@@ -1,5 +1,7 @@
 # example
 module CREDENTIALS
-  CLIENT_ID = ""
-  CLIENT_SECRET = ""
+  CLIENT_ID = "Client_Id"
+  CLIENT_SECRET = "Client_Secret"
+  PIX_CERT = "../../certs/developmentCertificate.pem"
+  SANDBOX = true
 end
