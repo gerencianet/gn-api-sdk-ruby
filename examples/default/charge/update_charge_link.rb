@@ -1,6 +1,6 @@
 require "gerencianet"
 require "date"
-require_relative "./credentials"
+require_relative "../../credentials"
 
 options = {
   client_id: CREDENTIALS::CLIENT_ID,
