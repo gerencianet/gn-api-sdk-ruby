@@ -1,5 +1,9 @@
 # 1.0.2
 
+- Updated: PixSend example
+
+# 1.0.2
+
 - Updated: dependencies
 
 # 1.0.0

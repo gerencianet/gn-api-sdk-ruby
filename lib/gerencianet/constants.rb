@@ -217,8 +217,8 @@ module Gerencianet
           method: "get"
         },
         pix_send: {
-          route: "/v2/pix",
-          method: "post"
+          route: "/v2/gn/pix/:idEnvio",
+          method: "put"
         },
         pix_detail: {
           route: "/v2/pix/:e2eId",

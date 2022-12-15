@@ -12,6 +12,10 @@ options = {
   sandbox: CREDENTIALS::SANDBOX
 }
 
+params = {
+    idEnvio: " "
+}
+
 body = {
     valor: "0.01",
     pagador: {
@@ -23,5 +27,5 @@ body = {
 }
 
 gerencianet = Gerencianet.new(options)
-puts gerencianet.pix_send(body: body)
+puts gerencianet.pix_send(params: params, body: body)
 
