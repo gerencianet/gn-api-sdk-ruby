@@ -78,6 +78,10 @@ module Gerencianet
           route: "/plan/:id/subscription",
           method: "post"
         },
+        create_subscription_onestep: {
+          route: "/plan/:id/subscription/one-step",
+          method: "post"
+        },
         detail_subscription: {
           route: "/subscription/:id",
           method: "get"
